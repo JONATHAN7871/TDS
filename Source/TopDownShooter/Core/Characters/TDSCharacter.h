@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "TDSCharacterMovementComponent.h"
+#include "InputAction.h"
+#include "InputMappingContext.h"
 #include "TDSCharacter.generated.h"
 
 class UTDSCharacterMovementComponent;
@@ -16,7 +18,7 @@ class TOPDOWNSHOOTER_API ATDSCharacter : public ACharacter
 
 public:
     ATDSCharacter(const FObjectInitializer& ObjectInitializer);
-
+    
 #pragma region TDS Character Movement States
 public:
     /** Основные состояния движения (реплицируются) */
@@ -104,6 +106,15 @@ public:
     
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+    UInputMappingContext* InputMappingContext;
+    
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+    UInputAction* IA_Move;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+    UInputAction* IA_Move_WorldSpace;
+    
 protected:
     virtual void BeginPlay() override;
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
